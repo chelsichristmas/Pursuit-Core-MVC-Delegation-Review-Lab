@@ -52,7 +52,13 @@ class SettingsViewController: UIViewController {
         subtitleFontSize = ((sender.value) - 5.0 )
     }
     
-    
+    @IBAction func sliderChanged(_ sender: UISlider) {
+        sizeStepper.value = Double(sender.value)
+        sizeFontLabel.text = "\(Double(Int(sender.value)))"
+        titleFontSize = Double(sender.value)
+        subtitleFontSize = (Double(sender.value) - 5.0 )
+
+    }
 
 }
 
