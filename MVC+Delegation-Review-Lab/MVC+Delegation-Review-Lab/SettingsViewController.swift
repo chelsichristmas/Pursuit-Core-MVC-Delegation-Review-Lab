@@ -10,15 +10,20 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    
     @IBOutlet weak var sizeSlider: UISlider!
     
     @IBOutlet weak var sizeStepper: UIStepper!
     
     @IBOutlet weak var sizeFontLabel: UILabel!
     
+    var titleFontSize: Double?
+    var subtitleFontSize: Double?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
         configureSlider()
         configureStepper()
@@ -43,8 +48,12 @@ class SettingsViewController: UIViewController {
     @IBAction func stepperChanged(_ sender: UIStepper) {
         sizeFontLabel.text = "\(sender.value)"
         sizeSlider.value = Float(sender.value)
+        titleFontSize = sender.value
+        subtitleFontSize = ((sender.value) - 5.0 )
     }
     
     
 
 }
+
+

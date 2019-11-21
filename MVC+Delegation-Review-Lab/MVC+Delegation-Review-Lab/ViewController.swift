@@ -9,10 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     
     @IBOutlet weak var tableView: UITableView!
     var movies = [Movie]()
+    var movieTitleFontSize = Double(17) {
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    var movieSubtitleFontSize = Double(12) {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +32,22 @@ class ViewController: UIViewController {
     
     func loadData() {
         movies = Movie.allMovies
+        
+        
     }
+    
+    
 
+    
+    @IBAction func fontSizeChanged(segue: UIStoryboardSegue) {
+        guard let settingsViewController = segue.source as? SettingsViewController, let titleFontSize = settingsViewController.titleFontSize, let subtitleFontSize = settingsViewController.subtitleFontSize else {
+            fatalError("No fontSize available from SettingsViewController")
+        }
+        
+        movieTitleFontSize = titleFontSize
+        movieSubtitleFontSize = subtitleFontSize
+        
+    }
 
 }
 extension ViewController: UITableViewDataSource {
@@ -43,7 +66,15 @@ extension ViewController: UITableViewDataSource {
         cell.detailTextLabel?.text = movie.year.description
         cell.imageView?.image = UIImage(named:"\(movie.posterImageName)")
         
+        cell.textLabel?.font = UIFont.systemFont(ofSize: CGFloat(movieTitleFontSize))
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: CGFloat(movieSubtitleFontSize))
+
+    
+       
         return cell
     }
+    
+    
 }
+
 
