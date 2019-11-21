@@ -10,11 +10,40 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var tableView: UITableView!
+    var movies = [Movie]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        loadData()
+        
+    }
+    
+    func loadData() {
+        movies = Movie.allMovies
     }
 
 
+}
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath)
+        
+        let movie = movies[indexPath.row]
+        
+        cell.textLabel?.text = movie.name
+        cell.detailTextLabel?.text = movie.year.description
+        cell.imageView?.image = UIImage(named:"\(movie.posterImageName)")
+        
+        return cell
+    }
 }
 
