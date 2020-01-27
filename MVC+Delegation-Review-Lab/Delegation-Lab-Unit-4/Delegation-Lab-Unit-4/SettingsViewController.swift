@@ -16,10 +16,11 @@ import UIKit
 
 protocol StepperAndSliderDelegate: AnyObject {
     
-    func didChangeValue(_ fontSize: Double)
+    func didChangeValue(titleFontSize: CGFloat)
     
 }
 class SettingsViewController: UIViewController {
+    
 
     @IBOutlet weak var sizeSlider: UISlider!
     
@@ -29,15 +30,26 @@ class SettingsViewController: UIViewController {
     
     
     weak var delegate: StepperAndSliderDelegate?
-    var titleFontSize: Double?
-    var subtitleFontSize: Double?
+    // this is a property that is a weak reference to the SettingsViewController
+    // we created this so that we can utilize the protocol method that we created in the protocol
+
+    var titleFontSize: CGFloat = 0.0 {
+        didSet {
+            delegate?.didChangeValue(titleFontSize: titleFontSize)
+        }
+    }
+       
+    var subtitleFontSize: CGFloat = 0.0 {
+        didSet {
+            delegate?.didChangeValue(titleFontSize: subtitleFontSize)
+        }
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        delegate?.didChangeValue(titleFontSize!)
+      
         configureSlider()
         configureStepper()
     }
@@ -47,6 +59,7 @@ class SettingsViewController: UIViewController {
         sizeSlider.minimumValue = 0.0
         sizeSlider.maximumValue = 30.0
         sizeSlider.value = 17.0
+        
         
     }
     
@@ -62,17 +75,17 @@ class SettingsViewController: UIViewController {
     @IBAction func stepperChanged(_ sender: UIStepper) {
         sizeFontLabel.text = "\(sender.value)"
         sizeSlider.value = Float(sender.value)
-        titleFontSize = sender.value
-        subtitleFontSize = ((sender.value) - 5.0 )
-        delegate?.didChangeValue(titleFontSize!)
-    }
+        titleFontSize = CGFloat(sender.value)
+        subtitleFontSize = CGFloat((sender.value) - 5.0 )
+        
+            }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
         sizeStepper.value = Double(sender.value)
         sizeFontLabel.text = "\(Double(Int(sender.value)))"
-        titleFontSize = Double(sender.value)
-        subtitleFontSize = (Double(sender.value) - 5.0 )
-        delegate?.didChangeValue(titleFontSize!)
+        titleFontSize = CGFloat(sender.value)
+        subtitleFontSize = (CGFloat(sender.value) - 5.0 )
+        
 
     }
 

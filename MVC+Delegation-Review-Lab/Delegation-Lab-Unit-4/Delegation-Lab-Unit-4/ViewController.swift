@@ -43,15 +43,15 @@ class ViewController: UIViewController {
      
 
      
-     @IBAction func fontSizeChanged(segue: UIStoryboardSegue) {
-         guard let settingsViewController = segue.source as? SettingsViewController, let titleFontSize = settingsViewController.titleFontSize, let subtitleFontSize = settingsViewController.subtitleFontSize else {
-             fatalError("No fontSize available from SettingsViewController")
-         }
-         
-         movieTitleFontSize = titleFontSize
-         movieSubtitleFontSize = subtitleFontSize
-         
-     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let settingsController = segue.destination as? SettingsViewController else {
+            fatalError("Unable to access SettingsVC")
+        }
+        
+        settingsController.delegate = self
+        settingsController.titleFontSize = CGFloat(movieTitleFontSize)
+        settingsController.subtitleFontSize = CGFloat(movieSubtitleFontSize)
+    }
 
  }
  extension ViewController: UITableViewDataSource {
@@ -68,10 +68,10 @@ class ViewController: UIViewController {
          
          cell.textLabel?.text = movie.name
          cell.detailTextLabel?.text = movie.year.description
-         cell.imageView?.image = UIImage(named:"\(movie.posterImageName)")
+//         cell.imageView?.image = UIImage(named:"\(movie.posterImageName)")
          
-         cell.textLabel?.font = UIFont.systemFont(ofSize: CGFloat(movieTitleFontSize))
-         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: CGFloat(movieSubtitleFontSize))
+        cell.textLabel?.font = cell.textLabel!.font.withSize(CGFloat(movieTitleFontSize))
+         cell.detailTextLabel?.font = cell.textLabel!.font.withSize(CGFloat(movieSubtitleFontSize))
 
      
         
@@ -80,3 +80,12 @@ class ViewController: UIViewController {
      
      
  }
+
+extension ViewController: StepperAndSliderDelegate {
+    func didChangeValue(titleFontSize: CGFloat) {
+        self.movieTitleFontSize = Double(titleFontSize)
+        self.movieSubtitleFontSize = Double(titleFontSize) - 5.0
+    }
+    
+    
+}
