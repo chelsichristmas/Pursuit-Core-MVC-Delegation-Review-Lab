@@ -28,28 +28,30 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var sizeFontLabel: UILabel!
     
+    @IBOutlet weak var subtitleFontLabel: UILabel!
     
     weak var delegate: StepperAndSliderDelegate?
     // this is a property that is a weak reference to the SettingsViewController
     // we created this so that we can utilize the protocol method that we created in the protocol
+//    var sliderValue = 0.0
+//    var stepperValue = 0.0
 
-    var titleFontSize: CGFloat = 0.0 {
+    var titleFontSize: CGFloat? {
         didSet {
-            delegate?.didChangeValue(titleFontSize: titleFontSize)
+            delegate?.didChangeValue(titleFontSize: titleFontSize!)
         }
     }
        
-    var subtitleFontSize: CGFloat = 0.0 {
+    var subtitleFontSize: CGFloat? {
         didSet {
-            delegate?.didChangeValue(titleFontSize: subtitleFontSize)
+            delegate?.didChangeValue(titleFontSize: subtitleFontSize!)
         }
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
+        sizeFontLabel.text = "Font Size: \(titleFontSize!.rounded())"
         configureSlider()
         configureStepper()
     }
@@ -58,17 +60,14 @@ class SettingsViewController: UIViewController {
     func configureSlider() {
         sizeSlider.minimumValue = 0.0
         sizeSlider.maximumValue = 30.0
-        sizeSlider.value = 17.0
-        
-        
+        sizeSlider.value = Float(titleFontSize!)
     }
     
     func configureStepper() {
         sizeStepper.minimumValue = 0
         sizeStepper.maximumValue = 30.0
-        sizeStepper.value = 17.0
-        
-        sizeFontLabel.text = "\(sizeSlider.value)"
+        sizeStepper.stepValue = 1
+        sizeStepper.value = Double(titleFontSize!)
     }
     
     
@@ -76,7 +75,7 @@ class SettingsViewController: UIViewController {
         sizeFontLabel.text = "\(sender.value)"
         sizeSlider.value = Float(sender.value)
         titleFontSize = CGFloat(sender.value)
-        subtitleFontSize = CGFloat((sender.value) - 5.0 )
+        subtitleFontSize = CGFloat((sender.value))
         
             }
     
@@ -84,7 +83,7 @@ class SettingsViewController: UIViewController {
         sizeStepper.value = Double(sender.value)
         sizeFontLabel.text = "\(Double(Int(sender.value)))"
         titleFontSize = CGFloat(sender.value)
-        subtitleFontSize = (CGFloat(sender.value) - 5.0 )
+        subtitleFontSize = (CGFloat(sender.value))
         
 
     }
