@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var sizeFontLabel: UILabel!
     
-    @IBOutlet weak var subtitleFontLabel: UILabel!
+    
     
     weak var delegate: StepperAndSliderDelegate?
     // this is a property that is a weak reference to the SettingsViewController

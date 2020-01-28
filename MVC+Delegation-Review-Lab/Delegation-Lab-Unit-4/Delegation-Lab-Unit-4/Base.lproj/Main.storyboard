@@ -102,13 +102,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Subtitle Font" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddd-UD-5uJ">
-                                <rect key="frame" x="20" y="644" width="374" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -129,7 +122,6 @@
                         <outlet property="sizeFontLabel" destination="2qa-Vw-Eab" id="eO3-M7-YGM"/>
                         <outlet property="sizeSlider" destination="LjD-Qq-oFo" id="x3Z-8o-jpf"/>
                         <outlet property="sizeStepper" destination="rLG-4T-CDy" id="7lq-bs-dX2"/>
-                        <outlet property="subtitleFontLabel" destination="ddd-UD-5uJ" id="qJQ-R4-cDA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJg-3R-ti1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
